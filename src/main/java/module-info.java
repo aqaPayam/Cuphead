@@ -13,4 +13,6 @@ module com.example.cuphead2 {
 
     opens com.example.cuphead2 to javafx.fxml;
     exports com.example.cuphead2;
+    exports com.example.cuphead2.SceneControllers;
+    opens com.example.cuphead2.SceneControllers to javafx.fxml;
 }
