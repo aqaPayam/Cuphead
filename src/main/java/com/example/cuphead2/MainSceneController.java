@@ -1,5 +1,6 @@
 package com.example.cuphead2;
 
+import com.example.cuphead2.Models.Plane;
 import com.example.cuphead2.SceneControllers.GameSceneController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;

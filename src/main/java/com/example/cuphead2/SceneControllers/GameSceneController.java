@@ -1,14 +1,15 @@
 package com.example.cuphead2.SceneControllers;
 
+import com.example.cuphead2.Models.BossAnimation;
+import com.example.cuphead2.Models.BossFight;
 import com.example.cuphead2.Models.Plane;
-import javafx.animation.AnimationTimer;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.stage.Stage;
@@ -38,10 +40,10 @@ public class GameSceneController implements Initializable {
 
     private final Plane plane = Plane.getInstance();
 
+    private final BossFight bossFight = BossFight.getInstance();
+
     @FXML
     private AnchorPane pane;
-
-    private Plane realPlane;
 
     AnimationTimer timer = new AnimationTimer() {
         @Override
@@ -66,11 +68,24 @@ public class GameSceneController implements Initializable {
         }
     };
 
+    AnimationTimer collisionTimer = new AnimationTimer() {
+        @Override
+        public void handle(long timestamp) {
+            if (plane.hasCollision(bossFight))
+                System.out.println("kir");
+        }
+    };
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         pane.getChildren().add(plane);
-        plane.requestFocus();
+        pane.getChildren().add(bossFight);
         movementSetup();
+        BossAnimation bossAnimation = new BossAnimation(plane, bossFight);
+        bossAnimation.play();
+        playBossFightAnimation();
+        collisionTimer.start();
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
             if (!aBoolean) {
                 timer.start();
@@ -122,7 +137,16 @@ public class GameSceneController implements Initializable {
         plane.setLayoutX(0);
         plane.setLayoutY(0);
     }
-}
 
+    private void playBossFightAnimation() {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1));
+        transition.setNode(bossFight);
+        transition.setByY(600);
+        transition.setInterpolator(Interpolator.LINEAR);
+        transition.setCycleCount(Animation.INDEFINITE);
+        transition.setAutoReverse(true);
+        transition.play();
+    }
+}
 
 

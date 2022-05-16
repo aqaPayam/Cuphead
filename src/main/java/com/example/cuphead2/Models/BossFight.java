@@ -1,30 +1,25 @@
 package com.example.cuphead2.Models;
 
 import com.example.cuphead2.Main;
-import com.example.cuphead2.SceneControllers.GameSceneController;
-import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.FileInputStream;
+public class BossFight extends ImageView {
+    private static BossFight instance;
 
-public class Plane extends ImageView {
-    private final int movementVariable =3;
-    private static Plane instance;
-
-    public static Plane getInstance() {
+    public static BossFight getInstance() {
         if (instance == null)
-            instance = new Plane();
+            instance = new BossFight();
         return instance;
     }
 
-    private Plane() {
+    private BossFight() {
         super();
-        super.setImage(new Image(Main.class.getResource("Cuphead.png").toExternalForm()));
-        super.setFitHeight(150);
-        super.setFitWidth(200);
-        super.setLayoutX(227);
-        super.setLayoutY(113);
+        super.setImage(new Image(Main.class.getResource("Boss.png").toExternalForm()));
+        super.setFitHeight((double) 421 / 5 * 4);
+        super.setFitWidth((double) 593 / 5 * 4);
+        super.setLayoutX(1100);
+        super.setLayoutY(0);
         // super.setPreserveRatio(true);
         // super.setPickOnBounds(true);
     }
@@ -54,22 +49,5 @@ public class Plane extends ImageView {
         return this.getLayoutY() + this.getFitHeight() >= this.getScene().getWindow().getHeight();
     }
 
-
-    public void goUp() {
-        instance.setLayoutY(instance.getLayoutY() - movementVariable);
-    }
-
-    public void goDown() {
-        instance.setLayoutY(instance.getLayoutY() + movementVariable);
-    }
-
-
-    public void goLeft() {
-        instance.setLayoutX(instance.getLayoutX() - movementVariable);
-    }
-
-    public void goRight() {
-        instance.setLayoutX(instance.getLayoutX() + movementVariable);
-    }
 
 }
