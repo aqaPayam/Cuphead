@@ -2,12 +2,14 @@ package com.example.cuphead2.Models;
 
 import com.example.cuphead2.Main;
 import com.example.cuphead2.SceneControllers.GameSceneController;
+import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 
 public class Plane extends ImageView {
+    private final int movementVariable = 1;
     private static Plane instance;
 
     public static Plane getInstance() {
@@ -50,6 +52,24 @@ public class Plane extends ImageView {
 
     public boolean hitFloor() {
         return this.getLayoutY() + this.getFitHeight() >= this.getScene().getWindow().getHeight();
+    }
+
+
+    public void goUp() {
+        instance.setLayoutY(instance.getLayoutY() - movementVariable);
+    }
+
+    public void goDown() {
+        instance.setLayoutY(instance.getLayoutY() + movementVariable);
+    }
+
+
+    public void goLeft() {
+        instance.setLayoutX(instance.getLayoutX() - movementVariable);
+    }
+
+    public void goRight() {
+        instance.setLayoutX(instance.getLayoutX() + movementVariable);
     }
 
 }

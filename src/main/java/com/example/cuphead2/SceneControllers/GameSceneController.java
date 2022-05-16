@@ -36,8 +36,8 @@ public class GameSceneController implements Initializable {
     @FXML
     public Button button;
 
-    @FXML
-    public ImageView plane;
+    private final Plane plane = Plane.getInstance();
+
     @FXML
     private AnchorPane pane;
 
@@ -48,32 +48,28 @@ public class GameSceneController implements Initializable {
         public void handle(long timestamp) {
 
             int movementVariable = 1;
-            if (wPressed.get() && plane.getLayoutY() > pane.getLayoutY()) {
-                plane.setLayoutY(plane.getLayoutY() - movementVariable);
-                plane.setRotationAxis(new Point3D(0, 0, 55));
+            if (wPressed.get() && !plane.hitTopWall()) {
+                plane.goUp();
             }
 
-            if (sPressed.get() && plane.getLayoutY() < pane.getHeight() - plane.getFitHeight()) {
-                plane.setLayoutY(plane.getLayoutY() + movementVariable);
+            if (sPressed.get() && !plane.hitFloor()) {
+                plane.goDown();
             }
 
-            if (aPressed.get() && plane.getLayoutX() > pane.getLayoutX()) {
-                plane.setLayoutX(plane.getLayoutX() - movementVariable);
+            if (aPressed.get() && !plane.hitLeftWall()) {
+                plane.goLeft();
             }
 
-            if (dPressed.get() && plane.getLayoutX() < pane.getWidth() - plane.getFitWidth()) {
-                plane.setLayoutX(plane.getLayoutX() + movementVariable);
+            if (dPressed.get() && !plane.hitRightWall()) {
+                plane.goRight();
             }
         }
     };
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        realPlane = Plane.getInstance();
-        realPlane.setImage(plane.getImage());
-        pane.getChildren().remove(plane);
-        plane=realPlane;
         pane.getChildren().add(plane);
+        plane.requestFocus();
         movementSetup();
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
             if (!aBoolean) {

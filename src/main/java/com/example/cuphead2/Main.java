@@ -13,7 +13,7 @@ import java.util.TimerTask;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Plane.getInstance();
+       // Plane.getInstance();
         MainSceneController sceneController = MainSceneController.get();
         stage.setTitle("CupHead");
         sceneController.GameMenu(stage);
