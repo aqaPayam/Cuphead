@@ -1,6 +1,7 @@
 package com.example.cuphead2.SceneControllers;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 
 import javafx.beans.binding.BooleanBinding;
@@ -9,6 +10,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
+import javafx.geometry.Point3D;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
@@ -34,32 +36,26 @@ public class GameSceneController implements Initializable {
     private ImageView plane;
     @FXML
     private AnchorPane pane;
-    @FXML
-    private Button button;
-
-    public void start() {
-        plane.setLayoutY(200);
-        plane.setLayoutX(280);
-    }
 
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
 
             int movementVariable = 1;
-            if (wPressed.get()) {
+            if (wPressed.get() && plane.getLayoutY() > pane.getLayoutY()) {
                 plane.setLayoutY(plane.getLayoutY() - movementVariable);
+                plane.setRotationAxis(new Point3D(0, 0, 55));
             }
 
-            if (sPressed.get()) {
+            if (sPressed.get() && plane.getLayoutY() < pane.getHeight() - plane.getFitHeight()) {
                 plane.setLayoutY(plane.getLayoutY() + movementVariable);
             }
 
-            if (aPressed.get()) {
+            if (aPressed.get() && plane.getLayoutX() > pane.getLayoutX()) {
                 plane.setLayoutX(plane.getLayoutX() - movementVariable);
             }
 
-            if (dPressed.get()) {
+            if (dPressed.get() && plane.getLayoutX() < pane.getWidth() - plane.getFitWidth()) {
                 plane.setLayoutX(plane.getLayoutX() + movementVariable);
             }
         }
