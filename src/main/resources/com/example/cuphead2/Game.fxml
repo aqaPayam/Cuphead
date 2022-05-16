@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="814.0" prefWidth="1298.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cuphead2.SceneControllers.GameSceneController">
    <children>
-      <ImageView fx:id="plane" fitHeight="150.0" fitWidth="200.0" layoutX="227.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="plane" fitHeight="150.0" fitWidth="200.0" layoutX="216.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Cuphead.png" />
          </image>

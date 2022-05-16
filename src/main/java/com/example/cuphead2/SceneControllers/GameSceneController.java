@@ -1,5 +1,6 @@
 package com.example.cuphead2.SceneControllers;
 
+import com.example.cuphead2.Models.Plane;
 import javafx.animation.AnimationTimer;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -7,6 +8,7 @@ import javafx.animation.TranslateTransition;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
@@ -31,11 +33,15 @@ public class GameSceneController implements Initializable {
     private final BooleanProperty dPressed = new SimpleBooleanProperty();
 
     private final BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed);
+    @FXML
+    public Button button;
 
     @FXML
-    private ImageView plane;
+    public ImageView plane;
     @FXML
     private AnchorPane pane;
+
+    private Plane realPlane;
 
     AnimationTimer timer = new AnimationTimer() {
         @Override
@@ -63,6 +69,11 @@ public class GameSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        realPlane = Plane.getInstance();
+        realPlane.setImage(plane.getImage());
+        pane.getChildren().remove(plane);
+        plane=realPlane;
+        pane.getChildren().add(plane);
         movementSetup();
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
             if (!aBoolean) {
@@ -109,6 +120,11 @@ public class GameSceneController implements Initializable {
                 dPressed.set(false);
             }
         });
+    }
+
+    public void start(ActionEvent event) {
+        plane.setLayoutX(0);
+        plane.setLayoutY(0);
     }
 }
 
