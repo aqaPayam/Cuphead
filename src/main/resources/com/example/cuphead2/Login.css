@@ -1,0 +1,18 @@
+.root {
+    -fx-background-image: url('Login.jpg');
+    -fx-background-size: cover;
+}
+.label{
+    -fx-background-color: #1aff00;
+    -fx-background-radius: 200;
+}
+.backGray{
+    -fx-background-color: Gray;
+}
+.backBlue{
+    -fx-background-color: LightBlue;
+}
+.backGuest{
+    -fx-background-color: #ffbe76;
+    -fx-background-radius: 500;
+}

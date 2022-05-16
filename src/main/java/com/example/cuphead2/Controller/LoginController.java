@@ -11,6 +11,15 @@ public class LoginController {
         UserDatabase.addUser(newUser);
     }
 
+    public boolean isRegisterValid(String username, String password) {
+        return !UserDatabase.isUsernameDuplicate(username);
+    }
+
+    public boolean isLoginValid(String username, String password) {
+        User newUser = new User(username, password);
+        return UserDatabase.isUsernameAndPasswordTrue(newUser);
+    }
+
     public void login(String username, String password) throws Exception {
         User user = new User(username, password);
         user = UserDatabase.getUserFromUsers(user);

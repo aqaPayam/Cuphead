@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cuphead2.SceneControllers.LoginController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1207.0" styleClass="root" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cuphead2.SceneControllers.LoginSceneController">
+   <children>
+      <TextField fx:id="loginUsername" layoutX="273.0" layoutY="344.0" prefHeight="61.0" prefWidth="256.0" promptText="username" styleClass="backGray" stylesheets="@Login.css" />
+      <PasswordField fx:id="loginPassword" layoutX="273.0" layoutY="419.0" prefHeight="61.0" prefWidth="256.0" promptText="password" styleClass="backGray" stylesheets="@Login.css" />
+      <TextField fx:id="registerUsername" layoutX="692.0" layoutY="344.0" prefHeight="61.0" prefWidth="256.0" promptText="username" styleClass="backBlue" stylesheets="@Login.css" />
+      <PasswordField fx:id="registerPassword" layoutX="692.0" layoutY="419.0" prefHeight="61.0" prefWidth="256.0" promptText="password" styleClass="backBlue" stylesheets="@Login.css" />
+      <Button fx:id="loginButton" layoutX="352.0" layoutY="485.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="99.0" text="Login" textFill="RED" />
+      <Button fx:id="registerButton" layoutX="767.0" layoutY="485.0" mnemonicParsing="false" onAction="#register" prefHeight="40.0" prefWidth="115.0" text="Register" textFill="RED" />
+      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="143.0" layoutY="622.0" prefHeight="61.0" prefWidth="948.0" stylesheets="@Login.css" text="plese sign in or sign up">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
+      <Button fx:id="guestLabel" layoutX="517.0" layoutY="505.0" mnemonicParsing="false" onAction="#enterGuest" prefHeight="61.0" prefWidth="200.0" styleClass="backGuest" stylesheets="@Login.css" text="enter as guest" textFill="RED" />
+   </children>
+</AnchorPane>
