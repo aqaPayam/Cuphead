@@ -2,12 +2,27 @@ package com.example.cuphead2.Models;
 
 import com.almasb.fxgl.core.collection.Array;
 import com.example.cuphead2.Main;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Bullet extends ImageView {
+    private static Timer timeline = new Timer();
+
+    public static Timer getTimeline() {
+        return timeline;
+    }
+
+    public static void setTimeline(Timer timeline) {
+        Bullet.timeline = timeline;
+    }
+
     private final int movementVariable = 3;
     private static final ArrayList<Bullet> bulletArray = new ArrayList<>();
 

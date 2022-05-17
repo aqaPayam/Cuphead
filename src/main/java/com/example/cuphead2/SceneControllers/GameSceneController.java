@@ -1,5 +1,6 @@
 package com.example.cuphead2.SceneControllers;
 
+import com.example.cuphead2.Main;
 import com.example.cuphead2.Models.*;
 import javafx.animation.*;
 
@@ -7,12 +8,16 @@ import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.css.Match;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,10 +25,13 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GameSceneController implements Initializable {
 
@@ -51,9 +59,14 @@ public class GameSceneController implements Initializable {
         @Override
         public void handle(long timestamp) {
 
-            if (shiftPressed.get()) {
-                fire();
-            }
+//            if (shiftPressed.get()) {
+//                Bullet.getTimeline().setCycleCount(1);
+//                Bullet.getTimeline().getKeyFrames().add(new KeyFrame(Duration.millis(0), (actionEvent) -> {
+//                    fire();
+//                }, null, null));
+//                Bullet.getTimeline().play();
+//            } else
+//                Bullet.getTimeline().stop();
 
             if (wPressed.get() && !plane.hitTopWall()) {
                 plane.goUp();
@@ -84,11 +97,6 @@ public class GameSceneController implements Initializable {
                     Bullet.getBulletArray().remove(bullet);
                     pane.getChildren().remove(bullet);
                     i--;
-                    continue;
-                }
-                if (bullet.Out()) {
-                    planeBullet.remove(bullet);
-                    pane.getChildren().remove(bullet);
                 }
             }
             for (int i = 0; i < Egg.getEggArray().size(); i++) {
@@ -98,10 +106,6 @@ public class GameSceneController implements Initializable {
                     pane.getChildren().remove(bullet);
                     i--;
                     continue;
-                }
-                if (bullet.Out()) {
-                    Egg.getEggArray().remove(bullet);
-                    pane.getChildren().remove(bullet);
                 }
             }
         }
@@ -129,6 +133,16 @@ public class GameSceneController implements Initializable {
         pane.setOnKeyPressed(e -> {
             System.out.println(e.getCode());
             if (e.getCode() == KeyCode.SHIFT) {
+
+                Timer timer = Bullet.getTimeline();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(() -> {
+                            fire();
+                        });
+                    }
+                }, 0, 100);
                 shiftPressed.set(true);
             }
             if (e.getCode() == KeyCode.W) {
@@ -150,6 +164,8 @@ public class GameSceneController implements Initializable {
 
         pane.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.SHIFT) {
+                Bullet.getTimeline().cancel();
+                Bullet.setTimeline(new Timer());
                 shiftPressed.set(false);
             }
             if (e.getCode() == KeyCode.W) {
@@ -174,15 +190,51 @@ public class GameSceneController implements Initializable {
         Bullet bullet = new Bullet();
         Bullet.getBulletArray().add(bullet);
         pane.getChildren().add(bullet);
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.7));
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1));
         transition.setNode(bullet);
         transition.setByX(2000);
         transition.setInterpolator(Interpolator.LINEAR);
         transition.play();
+        transition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Egg.getEggArray().remove(bullet);
+                pane.getChildren().remove(bullet);
+            }
+        });
     }
 
     private void playBossFightAnimation() {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1));
+        ImageView imageView = new ImageView();
+        imageView.setLayoutX(BossFight.getInstance().getLayoutX() - 150);
+        imageView.setLayoutY(BossFight.getInstance().getLayoutY() + 100);
+        pane.getChildren().add(imageView);
+        TranslateTransition transition5 = new TranslateTransition(Duration.seconds(3));
+        transition5.setNode(imageView);
+        transition5.setByY(600);
+        transition5.setInterpolator(Interpolator.LINEAR);
+        transition5.setCycleCount(Animation.INDEFINITE);
+        transition5.setAutoReverse(true);
+        transition5.play();
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    String frame = BossFight.getFrameString();
+                    BossFight.getInstance().setImage(
+                            new Image(Main.class.
+                                    getResource("Phase 1/House/bird_idle_house_00" + frame + ".png")
+                                    .toExternalForm()));
+                    imageView.setImage(new Image(Main.class.
+                            getResource("Phase 1/Barf/bird_barf_head_00" + frame + ".png")
+                            .toExternalForm()));
+                });
+            }
+        }, 200, 50);
+
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(3));
         transition.setNode(bossFight);
         transition.setByY(600);
         transition.setInterpolator(Interpolator.LINEAR);
@@ -201,7 +253,7 @@ public class GameSceneController implements Initializable {
                     fireEgg();
                 });
             }
-        }, 200, 600);
+        }, 0, 800);
     }
 
     private void fireEgg() {
@@ -219,6 +271,13 @@ public class GameSceneController implements Initializable {
         transition.setByX(-2000);
         transition.setInterpolator(Interpolator.LINEAR);
         transition.play();
+        transition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Egg.getEggArray().remove(egg);
+                pane.getChildren().remove(egg);
+            }
+        });
         System.out.println(pane.getChildren().size());
     }
 }

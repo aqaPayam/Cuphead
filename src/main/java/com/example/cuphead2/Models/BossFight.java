@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BossFight extends ImageView {
+    private static int frame = 0;
     private static BossFight instance;
 
     public static BossFight getInstance() {
@@ -15,13 +16,28 @@ public class BossFight extends ImageView {
 
     private BossFight() {
         super();
-        super.setImage(new Image(Main.class.getResource("Boss.png").toExternalForm()));
+        super.setImage(new Image(Main.class.getResource("Phase 1/House/bird_idle_house_0001.png").toExternalForm()));
         super.setFitHeight((double) 421 / 5 * 4);
         super.setFitWidth((double) 593 / 5 * 4);
         super.setLayoutX(1100);
         super.setLayoutY(0);
         // super.setPreserveRatio(true);
         // super.setPickOnBounds(true);
+    }
+
+    public static int getFrame() {
+        if (frame > 16)
+            frame = 0;
+        int a = frame;
+        frame++;
+        return a+1;
+    }
+
+    public static String getFrameString() {
+        int a = getFrame();
+        if (a > 9)
+            return String.valueOf(a);
+        return "0" + a;
     }
 
     public void move(double dx, double dy) {
