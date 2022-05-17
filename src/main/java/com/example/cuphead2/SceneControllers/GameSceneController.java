@@ -115,6 +115,7 @@ public class GameSceneController implements Initializable {
                         pane.getChildren().remove(miniBoss);
                         i--;
                         break;
+
                     }
                 }
 
