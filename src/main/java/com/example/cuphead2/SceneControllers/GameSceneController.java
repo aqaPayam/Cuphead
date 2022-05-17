@@ -59,15 +59,6 @@ public class GameSceneController implements Initializable {
         @Override
         public void handle(long timestamp) {
 
-//            if (shiftPressed.get()) {
-//                Bullet.getTimeline().setCycleCount(1);
-//                Bullet.getTimeline().getKeyFrames().add(new KeyFrame(Duration.millis(0), (actionEvent) -> {
-//                    fire();
-//                }, null, null));
-//                Bullet.getTimeline().play();
-//            } else
-//                Bullet.getTimeline().stop();
-
             if (wPressed.get() && !plane.hitTopWall()) {
                 plane.goUp();
             }
@@ -108,6 +99,26 @@ public class GameSceneController implements Initializable {
                     continue;
                 }
             }
+            for (int i = 0; i < MiniBoss.getMiniBosses().size(); i++) {
+                MiniBoss miniBoss = MiniBoss.getMiniBosses().get(i);
+                if (miniBoss.hasCollision(plane)) {
+                    MiniBoss.getMiniBosses().remove(miniBoss);
+                    pane.getChildren().remove(miniBoss);
+                    i--;
+                }
+                for (int j = 0; j < planeBullet.size(); j++) {
+                    Bullet bullet = planeBullet.get(j);
+                    if (miniBoss.hasCollision(bullet)) {
+                        Bullet.getBulletArray().remove(bullet);
+                        pane.getChildren().remove(bullet);
+                        MiniBoss.getMiniBosses().remove(miniBoss);
+                        pane.getChildren().remove(miniBoss);
+                        i--;
+                        break;
+                    }
+                }
+
+            }
         }
     };
 
@@ -117,6 +128,7 @@ public class GameSceneController implements Initializable {
         pane.getChildren().add(plane);
         pane.getChildren().add(bossFight);
         generateEggSet();
+        generateMiniBoss();
         movementSetup();
         playBossFightAnimation();
         collisionTimer.start();
@@ -279,6 +291,55 @@ public class GameSceneController implements Initializable {
             }
         });
         System.out.println(pane.getChildren().size());
+    }
+
+
+    private void generateMiniBoss() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    fireMiniBoss();
+                });
+            }
+        }, 0, 1000);
+    }
+
+    private void fireMiniBoss() {
+        MiniBoss miniBoss = new MiniBoss();
+        miniBossAnimation(miniBoss);
+        MiniBoss.getMiniBosses().add(miniBoss);
+        pane.getChildren().add(miniBoss);
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(5));
+        transition.setNode(miniBoss);
+        transition.setByX(-2000);
+        transition.setInterpolator(Interpolator.LINEAR);
+        transition.play();
+        transition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MiniBoss.getMiniBosses().remove(miniBoss);
+                pane.getChildren().remove(miniBoss);
+            }
+        });
+    }
+
+    private void miniBossAnimation(MiniBoss miniBoss) {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    String frame = miniBoss.getFrameString();
+                    miniBoss.setImage(
+                            new Image(Main.class.
+                                    getResource("Phase 1/Flappy Birds/Pink/Fly/flappy_bird_fly_pink_00" + frame + ".png")
+                                    .toExternalForm()));
+                });
+            }
+        }, 200, 50);
+
     }
 }
 
