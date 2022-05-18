@@ -453,7 +453,7 @@ public class GameSceneController implements Initializable {
     }
 
     public void playMusic() {
-        String path = "/home/payam/Desktop/cuphead/Cuphead2/src/main/resources/com/example/cuphead2/music.mp3";
+        String path = "src/main/resources/com/example/cuphead2/music.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
        // mediaPlayer.setVolume(0.5);
@@ -461,7 +461,7 @@ public class GameSceneController implements Initializable {
     }
 
     public void playGunMusic() {
-        String path = "/home/payam/Desktop/cuphead/Cuphead2/src/main/resources/com/example/cuphead2/gun.mp3";
+        String path = "src/main/resources/com/example/cuphead2/gun.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
@@ -476,7 +476,7 @@ public class GameSceneController implements Initializable {
     }
 
     public void playOughtMusic() {
-        String path = "/home/payam/Desktop/cuphead/Cuphead2/src/main/resources/com/example/cuphead2/ought.mp3";
+        String path = "src/main/resources/com/example/cuphead2/ought.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
