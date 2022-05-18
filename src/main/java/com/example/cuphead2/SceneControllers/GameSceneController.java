@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -54,6 +55,7 @@ public class GameSceneController implements Initializable {
     private final BossFight bossFight = BossFight.getInstance();
 
     private final ArrayList<Bullet> planeBullet = Bullet.getBulletArray();
+    public Label healthLabel;
     @FXML
     private ProgressBar bossFightHealth;
     @FXML
@@ -94,6 +96,7 @@ public class GameSceneController implements Initializable {
                 if (bullet.hasCollision(bossFight)) {
                     bossFight.setHealth(bossFight.getHealth()-5);
                     bossFightHealth.setProgress(bossFight.getHealth()/(double)5000);
+                    healthLabel.setText(String.valueOf(bossFight.getHealth()));
                     Bullet.getBulletArray().remove(bullet);
                     pane.getChildren().remove(bullet);
                     i--;

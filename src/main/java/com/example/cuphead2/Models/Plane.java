@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 public class Plane extends ImageView {
     private final int movementVariable =8;
     private static Plane instance;
+    private int health=10;
 
     public static Plane getInstance() {
         if (instance == null)
@@ -72,4 +73,11 @@ public class Plane extends ImageView {
         instance.setLayoutX(instance.getLayoutX() + movementVariable);
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }
