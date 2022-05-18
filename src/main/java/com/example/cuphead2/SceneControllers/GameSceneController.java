@@ -27,8 +27,11 @@ import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -159,6 +162,7 @@ public class GameSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        playMusic();
         startBackgroundAnimation();
         pane.getChildren().add(plane);
         pane.getChildren().add(bossFight);
@@ -242,6 +246,7 @@ public class GameSceneController implements Initializable {
         transition.setByX(2000);
         transition.setInterpolator(Interpolator.LINEAR);
         transition.play();
+        playGunMusic();
         transition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -318,6 +323,7 @@ public class GameSceneController implements Initializable {
         transition.setByX(-2000);
         transition.setInterpolator(Interpolator.LINEAR);
         transition.play();
+        playOughtMusic();
         transition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -444,6 +450,48 @@ public class GameSceneController implements Initializable {
         imageViews.add(heart9);
         imageViews.add(heart10);
         return imageViews;
+    }
+
+    public void playMusic() {
+        String path = "/home/payam/Desktop/cuphead/Cuphead2/src/main/resources/com/example/cuphead2/music.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+       // mediaPlayer.setVolume(0.5);
+        mediaPlayer.setAutoPlay(true);
+    }
+
+    public void playGunMusic() {
+        String path = "/home/payam/Desktop/cuphead/Cuphead2/src/main/resources/com/example/cuphead2/gun.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+        Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mediaPlayer.pause();
+            }
+        }, 1000);
+
+    }
+
+    public void playOughtMusic() {
+        String path = "/home/payam/Desktop/cuphead/Cuphead2/src/main/resources/com/example/cuphead2/ought.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+        Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+               try {
+                   mediaPlayer.pause();
+               } catch (Exception e) {
+                   System.out.println("game Finished");
+               }
+            }
+        }, 1000);
+
     }
 }
 
