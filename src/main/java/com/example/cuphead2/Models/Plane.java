@@ -12,7 +12,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class Plane extends ImageView {
-    private final int movementVariable = 8;
+    private final int movementVariable = 20;
     private static Plane instance;
     private int health = 10;
     private boolean inInjured = false;
@@ -26,8 +26,8 @@ public class Plane extends ImageView {
     private Plane() {
         super();
         super.setImage(new Image(Main.class.getResource("Cuphead.png").toExternalForm()));
-        super.setFitHeight(150);
-        super.setFitWidth(200);
+        super.setFitHeight(120);
+        super.setFitWidth(160);
         super.setLayoutX(227);
         super.setLayoutY(113);
         // super.setPreserveRatio(true);

@@ -17,8 +17,8 @@ public class Egg extends ImageView {
     public Egg() {
         super();
         super.setImage(new Image(Main.class.getResource("egg.png").toExternalForm()));
-        super.setFitHeight(150);
-        super.setFitWidth(150);
+        super.setFitHeight(100);
+        super.setFitWidth(100);
         super.setLayoutX(BossFight.getInstance().getLayoutX() - 110);
         super.setLayoutY(BossFight.getInstance().getTranslateY() + 140);
     }

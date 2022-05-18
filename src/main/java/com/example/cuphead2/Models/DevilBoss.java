@@ -4,13 +4,10 @@ import com.example.cuphead2.Main;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class BossFight extends ImageView {
-    private static int frame = 0;
-    private static BossFight instance;
+public class DevilBoss extends BossFight{
 
-    public BossFight(int ChangeToDevilMode) {
-        super();
-    }
+    private static int frame = 0;
+    private static DevilBoss instance;
 
     public int getHealth() {
         return health;
@@ -20,17 +17,17 @@ public class BossFight extends ImageView {
         this.health = health;
     }
 
-    private int health=5000;
+    private int health=2500;
 
-    public static BossFight getInstance() {
+    public static DevilBoss getInstance() {
         if (instance == null)
-            instance = new BossFight();
+            instance = new DevilBoss();
         return instance;
     }
 
-    private BossFight() {
-        super();
-        super.setImage(new Image(Main.class.getResource("Phase 1/House/bird_idle_house_0001.png").toExternalForm()));
+    private DevilBoss() {
+        super(0);
+        super.setImage(new Image(Main.class.getResource("devilBoss/egghead_shoot_0001.png").toExternalForm()));
         super.setFitHeight((double) 421 / 5 * 4);
         super.setFitWidth((double) 593 / 5 * 4);
         super.setLayoutX(1100);
@@ -40,7 +37,7 @@ public class BossFight extends ImageView {
     }
 
     public static int getFrame() {
-        if (frame > 16)
+        if (frame > 20)
             frame = 0;
         int a = frame;
         frame++;
@@ -62,22 +59,4 @@ public class BossFight extends ImageView {
     public boolean hasCollision(ImageView block) {
         return block.getBoundsInParent().intersects(this.getBoundsInParent());
     }
-
-    public boolean hitTopWall() {
-        return this.getLayoutY() <= 0;
-    }
-
-    public boolean hitLeftWall() {
-        return this.getLayoutX() <= 0;
-    }
-
-    public boolean hitRightWall() {
-        return this.getLayoutX() + this.getFitWidth() >= this.getScene().getWindow().getWidth();
-    }
-
-    public boolean hitFloor() {
-        return this.getLayoutY() + this.getFitHeight() >= this.getScene().getWindow().getHeight();
-    }
-
-
 }
