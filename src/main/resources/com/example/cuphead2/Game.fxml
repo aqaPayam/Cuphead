@@ -3,8 +3,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="pane" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cuphead2.SceneControllers.GameSceneController">
+<AnchorPane fx:id="pane" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.cuphead2.SceneControllers.GameSceneController"
+            stylesheets="@Background.css">
     <children>
-        <Button fx:id="button" layoutX="668.0" layoutY="498.0" mnemonicParsing="false" text="Button" />
+        <Button fx:id="button" layoutX="668.0" layoutY="498.0" mnemonicParsing="false" text="Button"/>
     </children>
+
 </AnchorPane>

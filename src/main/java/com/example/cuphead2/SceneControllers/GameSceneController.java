@@ -7,7 +7,9 @@ import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.css.Match;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +24,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -126,6 +129,7 @@ public class GameSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        startBackgroundAnimation();
         pane.getChildren().add(plane);
         pane.getChildren().add(bossFight);
         generateEggSet();
@@ -342,6 +346,30 @@ public class GameSceneController implements Initializable {
         }, 200, 50);
 
     }
+
+    public void startBackgroundAnimation() {
+        DoubleProperty xPosition = new SimpleDoubleProperty(0);
+        xPosition.addListener((observable, oldValue, newValue) -> setBackgroundPositions(pane, xPosition.get()));
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(xPosition, 0)),
+                new KeyFrame(Duration.seconds(200), new KeyValue(xPosition, -15000))
+        );
+        timeline.play();
+    }
+
+    void setBackgroundPositions(Region region, double xPosition) {
+        String style = "-fx-background-position: " +
+                "left " + xPosition / 6 + "px bottom," +
+                "left " + xPosition / 5 + "px bottom," +
+                "left " + xPosition / 4 + "px bottom," +
+                "left " + xPosition / 3 + "px bottom," +
+                "left " + xPosition / 2 + "px bottom," +
+                "left " + xPosition + "px bottom;";
+
+        region.setStyle(style);
+    }
+
 }
 
 
