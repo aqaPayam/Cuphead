@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -46,14 +47,17 @@ public class GameSceneController implements Initializable {
     private final BooleanProperty shiftPressed = new SimpleBooleanProperty();
 
     private final BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
-    @FXML
-    public Button button;
+
 
     private final Plane plane = Plane.getInstance();
 
     private final BossFight bossFight = BossFight.getInstance();
 
     private final ArrayList<Bullet> planeBullet = Bullet.getBulletArray();
+    @FXML
+    private ProgressBar bossFightHealth;
+    @FXML
+    private Button button;
 
     @FXML
     private AnchorPane pane;
@@ -88,6 +92,8 @@ public class GameSceneController implements Initializable {
             for (int i = 0; i < planeBullet.size(); i++) {
                 Bullet bullet = planeBullet.get(i);
                 if (bullet.hasCollision(bossFight)) {
+                    bossFight.setHealth(bossFight.getHealth()-5);
+                    bossFightHealth.setProgress(bossFight.getHealth()/(double)5000);
                     Bullet.getBulletArray().remove(bullet);
                     pane.getChildren().remove(bullet);
                     i--;
@@ -353,7 +359,7 @@ public class GameSceneController implements Initializable {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(xPosition, 0)),
-                new KeyFrame(Duration.seconds(200), new KeyValue(xPosition, -15000))
+                new KeyFrame(Duration.seconds(100), new KeyValue(xPosition, -15000))
         );
         timeline.play();
     }

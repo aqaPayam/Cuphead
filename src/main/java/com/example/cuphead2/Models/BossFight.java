@@ -8,6 +8,16 @@ public class BossFight extends ImageView {
     private static int frame = 0;
     private static BossFight instance;
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    private int health=5000;
+
     public static BossFight getInstance() {
         if (instance == null)
             instance = new BossFight();

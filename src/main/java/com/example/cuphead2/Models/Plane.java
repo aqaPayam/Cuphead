@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 
 public class Plane extends ImageView {
-    private final int movementVariable =3;
+    private final int movementVariable =8;
     private static Plane instance;
 
     public static Plane getInstance() {
