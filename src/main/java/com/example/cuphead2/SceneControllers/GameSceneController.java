@@ -55,7 +55,28 @@ public class GameSceneController implements Initializable {
     private final BossFight bossFight = BossFight.getInstance();
 
     private final ArrayList<Bullet> planeBullet = Bullet.getBulletArray();
-    public Label healthLabel;
+    @FXML
+    private Label healthLabel;
+    @FXML
+    public ImageView heart1;
+    @FXML
+    public ImageView heart2;
+    @FXML
+    public ImageView heart3;
+    @FXML
+    public ImageView heart4;
+    @FXML
+    public ImageView heart5;
+    @FXML
+    public ImageView heart6;
+    @FXML
+    public ImageView heart7;
+    @FXML
+    public ImageView heart8;
+    @FXML
+    public ImageView heart9;
+    @FXML
+    public ImageView heart10;
     @FXML
     private ProgressBar bossFightHealth;
     @FXML
@@ -384,6 +405,7 @@ public class GameSceneController implements Initializable {
         if (plane.isInInjured())
             return;
         plane.setHealth(plane.getHealth() - 1);
+        pane.getChildren().remove(getHearts().get(plane.getHealth()));
         plane.setInInjured(true);
         plane.setOpacity(0.4);
         Timer timer = new Timer();
@@ -409,6 +431,20 @@ public class GameSceneController implements Initializable {
         }, 4 * 500);
     }
 
+    public ArrayList<ImageView> getHearts() {
+        ArrayList<ImageView> imageViews = new ArrayList<>();
+        imageViews.add(heart1);
+        imageViews.add(heart2);
+        imageViews.add(heart3);
+        imageViews.add(heart4);
+        imageViews.add(heart5);
+        imageViews.add(heart6);
+        imageViews.add(heart7);
+        imageViews.add(heart8);
+        imageViews.add(heart9);
+        imageViews.add(heart10);
+        return imageViews;
+    }
 }
 
 

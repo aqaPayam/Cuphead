@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -16,6 +18,56 @@
             <Font size="27.0" />
          </font>
       </Label>
+      <ImageView fx:id="heart1" fitHeight="39.0" fitWidth="39.0" layoutX="14.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart2" fitHeight="39.0" fitWidth="39.0" layoutX="52.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart3" fitHeight="39.0" fitWidth="39.0" layoutX="90.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart4" fitHeight="39.0" fitWidth="39.0" layoutX="128.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart5" fitHeight="39.0" fitWidth="39.0" layoutX="166.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart6" fitHeight="39.0" fitWidth="39.0" layoutX="204.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart7" fitHeight="39.0" fitWidth="39.0" layoutX="242.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart8" fitHeight="39.0" fitWidth="39.0" layoutX="280.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart9" fitHeight="39.0" fitWidth="39.0" layoutX="318.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="heart10" fitHeight="39.0" fitWidth="39.0" layoutX="356.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@heart.png" />
+         </image>
+      </ImageView>
     </children>
 
 </AnchorPane>

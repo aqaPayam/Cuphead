@@ -2,17 +2,20 @@ package com.example.cuphead2.Models;
 
 import com.example.cuphead2.Main;
 import com.example.cuphead2.SceneControllers.GameSceneController;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point3D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 public class Plane extends ImageView {
-    private final int movementVariable =8;
+    private final int movementVariable = 8;
     private static Plane instance;
-    private int health=10;
-    private boolean inInjured=false;
+    private int health = 10;
+    private boolean inInjured = false;
 
     public static Plane getInstance() {
         if (instance == null)
