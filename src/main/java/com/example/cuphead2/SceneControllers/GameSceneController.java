@@ -90,12 +90,12 @@ public class GameSceneController implements Initializable {
         @Override
         public void handle(long timestamp) {
             if (plane.hasCollision(bossFight))
-                System.out.println("kir");
+                planeInjured();
             for (int i = 0; i < planeBullet.size(); i++) {
                 Bullet bullet = planeBullet.get(i);
                 if (bullet.hasCollision(bossFight)) {
-                    bossFight.setHealth(bossFight.getHealth()-5);
-                    bossFightHealth.setProgress(bossFight.getHealth()/(double)5000);
+                    bossFight.setHealth(bossFight.getHealth() - 5);
+                    bossFightHealth.setProgress(bossFight.getHealth() / (double) 5000);
                     healthLabel.setText(String.valueOf(bossFight.getHealth()));
                     Bullet.getBulletArray().remove(bullet);
                     pane.getChildren().remove(bullet);
@@ -377,6 +377,36 @@ public class GameSceneController implements Initializable {
                 "left " + xPosition + "px bottom;";
 
         region.setStyle(style);
+    }
+
+    private void planeInjured() {
+        int seconds = 4000;
+        if (plane.isInInjured())
+            return;
+        plane.setHealth(plane.getHealth() - 1);
+        plane.setInInjured(true);
+        plane.setOpacity(0.4);
+        Timer timer = new Timer();
+        for (int i = 1; i <= 7; i++) {
+            int finalI = i;
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (finalI % 2 == 1)
+                        plane.setOpacity(0.2);
+                    else
+                        plane.setOpacity(1);
+                }
+            }, seconds / i);
+            timer = new Timer();
+        }
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                plane.setInInjured(false);
+                plane.setOpacity(1);
+            }
+        }, 4 * 500);
     }
 
 }

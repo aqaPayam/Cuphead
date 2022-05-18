@@ -12,6 +12,7 @@ public class Plane extends ImageView {
     private final int movementVariable =8;
     private static Plane instance;
     private int health=10;
+    private boolean inInjured=false;
 
     public static Plane getInstance() {
         if (instance == null)
@@ -79,5 +80,13 @@ public class Plane extends ImageView {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public boolean isInInjured() {
+        return inInjured;
+    }
+
+    public void setInInjured(boolean inInjured) {
+        this.inInjured = inInjured;
     }
 }
