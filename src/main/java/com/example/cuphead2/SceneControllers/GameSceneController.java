@@ -419,7 +419,7 @@ public class GameSceneController implements Initializable {
                     else
                         plane.setOpacity(1);
                 }
-            }, seconds / i);
+            }, seconds / 8 * i);
             timer = new Timer();
         }
         timer.schedule(new TimerTask() {
@@ -428,7 +428,7 @@ public class GameSceneController implements Initializable {
                 plane.setInInjured(false);
                 plane.setOpacity(1);
             }
-        }, 4 * 500);
+        }, seconds);
     }
 
     public ArrayList<ImageView> getHearts() {
