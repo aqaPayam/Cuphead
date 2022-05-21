@@ -117,7 +117,7 @@ public class planeToBombAnimation {
                                     .toExternalForm()));
                 });
             }
-        }, 0, 500);
+        }, 0, 100);
 
     }
 }

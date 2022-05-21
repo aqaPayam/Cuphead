@@ -1,11 +1,20 @@
 package com.example.cuphead2.Models;
 
 import com.example.cuphead2.Main;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MiniBoss extends ImageView {
     private static final ArrayList<MiniBoss> miniBosses = new ArrayList<>();
@@ -48,4 +57,53 @@ public class MiniBoss extends ImageView {
         return "0" + a;
     }
 
+
+    public static void generateMiniBoss() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    fireMiniBoss();
+                });
+            }
+        }, 0, 1000);
+    }
+
+    private static void fireMiniBoss() {
+        Pane pane= (Pane) BossFight.getInstance().getParent();
+        MiniBoss miniBoss = new MiniBoss();
+        miniBossAnimation(miniBoss);
+        MiniBoss.getMiniBosses().add(miniBoss);
+        pane.getChildren().add(miniBoss);
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(5));
+        transition.setNode(miniBoss);
+        transition.setByX(-2000);
+        transition.setInterpolator(Interpolator.LINEAR);
+        transition.play();
+        transition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MiniBoss.getMiniBosses().remove(miniBoss);
+                pane.getChildren().remove(miniBoss);
+            }
+        });
+    }
+
+    private static void miniBossAnimation(MiniBoss miniBoss) {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    String frame = miniBoss.getFrameString();
+                    miniBoss.setImage(
+                            new Image(Main.class.
+                                    getResource("Phase 1/Flappy Birds/Pink/Fly/flappy_bird_fly_pink_00" + frame + ".png")
+                                    .toExternalForm()));
+                });
+            }
+        }, 200, 50);
+
+    }
 }
