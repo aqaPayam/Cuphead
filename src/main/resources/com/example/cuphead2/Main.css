@@ -21,3 +21,9 @@
 
 .background {
 }
+
+.backmao {
+    -fx-background-color: #001dff;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}

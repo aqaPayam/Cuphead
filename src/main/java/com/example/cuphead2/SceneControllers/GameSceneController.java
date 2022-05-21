@@ -167,6 +167,7 @@ public class GameSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startBackgroundAnimation();
+        playMusic();
         pane.getChildren().add(plane);
         pane.getChildren().add(bossFight);
         generateEggSet();
@@ -181,12 +182,10 @@ public class GameSceneController implements Initializable {
                 timer.stop();
             }
         }));
-        playMusic();
     }
 
     public void movementSetup() {
         pane.setOnKeyPressed(e -> {
-            System.out.println(e.getCode());
             if (e.getCode() == KeyCode.SHIFT) {
 
                 Timer timer = Bullet.getTimeline();
@@ -348,7 +347,6 @@ public class GameSceneController implements Initializable {
                 pane.getChildren().remove(egg);
             }
         });
-        System.out.println(pane.getChildren().size());
     }
 
 
@@ -511,7 +509,7 @@ public class GameSceneController implements Initializable {
                 try {
                     mediaPlayer.pause();
                 } catch (Exception e) {
-                    System.out.println("game Finished");
+                    System.exit(0);
                 }
             }
         }, 1000);
@@ -529,8 +527,6 @@ public class GameSceneController implements Initializable {
             public void run() {
                 TranslateTransition transition5 = new TranslateTransition(Duration.seconds(2));
                 transition5.setNode(bossFight);
-                System.out.println(plane.getLayoutY() + "and " + plane.getLayoutX());
-                System.out.println(bossFight.getTranslateY() + "  and " + bossFight.getTranslateX());
                 transition5.setByX(-bossFight.getTranslateX() - bossFight.getLayoutX() + plane.getLayoutX());
                 transition5.setByY(-bossFight.getTranslateY() - bossFight.getLayoutY() + plane.getLayoutY());
                 transition5.setCycleCount(1);
