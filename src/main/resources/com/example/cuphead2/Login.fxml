@@ -28,5 +28,10 @@
          </font>
       </Button>
       <ImageView fx:id="avatarImage" fitHeight="158.0" fitWidth="180.0" layoutX="984.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="nextAvatarButton1" layoutX="1010.0" layoutY="512.0" mnemonicParsing="false" onAction="#randomAvatar" prefHeight="48.0" prefWidth="129.0" styleClass="backmao" stylesheets="@Main.css" text="random" textFill="RED">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

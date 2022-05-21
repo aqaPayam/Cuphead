@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import static java.time.Duration.ofSeconds;
@@ -28,6 +29,7 @@ public class LoginSceneController implements Initializable {
     public Button guestLabel;
     public Button nextAvatarButton;
     public ImageView avatarImage;
+    public Button nextAvatarButton1;
     @FXML
     private Label label;
     @FXML
@@ -50,7 +52,7 @@ public class LoginSceneController implements Initializable {
         String pass = registerPassword.getText();
         String username = registerUsername.getText();
         if (controller.isRegisterValid(username, pass)) {
-              controller.register(username, pass,avatar);
+            controller.register(username, pass, avatar);
             label.setText("Register successful");
         } else {
             label.setText("you cant use this username");
@@ -70,8 +72,11 @@ public class LoginSceneController implements Initializable {
     }
 
 
-    public void enterGuest(ActionEvent e) throws IOException {
+    public void enterGuest(ActionEvent e) throws Exception {
+        controller.register("guest", "guest", avatar);
+        controller.login("guest", "guest");
         MainSceneController.get().MainMenu((Stage) ((Node) e.getSource()).getScene().getWindow());
+
     }
 
     public void nextAvatar(ActionEvent actionEvent) {
@@ -83,6 +88,12 @@ public class LoginSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        avatarImage.setImage(new Image(Main.class.getResource("Avatars/" + avatar  + ".png").toExternalForm()));
+        avatarImage.setImage(new Image(Main.class.getResource("Avatars/" + avatar + ".png").toExternalForm()));
+    }
+
+    public void randomAvatar(ActionEvent actionEvent) {
+        Random random = new Random();
+        avatar = random.nextInt(4) + 1;
+        avatarImage.setImage(new Image(Main.class.getResource("Avatars/" + avatar + ".png").toExternalForm()));
     }
 }
