@@ -88,6 +88,8 @@ public class GameSceneController implements Initializable {
     @FXML
     private AnchorPane pane;
 
+    boolean enteredDevilMode = false;
+
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
@@ -113,16 +115,18 @@ public class GameSceneController implements Initializable {
     AnimationTimer collisionTimer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
+            bossFightHealth.setProgress(bossFight.getHealth() / (double) 5000);
+            healthLabel.setText(String.valueOf(bossFight.getHealth()));
+            if (bossFight.getHealth() <= 2500 && !enteredDevilMode) {
+                enterDevilMode();
+                enteredDevilMode = true;
+            }
             if (plane.hasCollision(bossFight))
                 planeInjured();
             for (int i = 0; i < planeBullet.size(); i++) {
                 Bullet bullet = planeBullet.get(i);
                 if (bullet.hasCollision(bossFight)) {
-                    bossFight.setHealth(bossFight.getHealth() - 500);
-                    bossFightHealth.setProgress(bossFight.getHealth() / (double) 5000);
-                    if (bossFight.getHealth() <= 2500)
-                        enterDevilMode();
-                    healthLabel.setText(String.valueOf(bossFight.getHealth()));
+                    bossFight.setHealth(bossFight.getHealth() - 100);
                     Bullet.getBulletArray().remove(bullet);
                     pane.getChildren().remove(bullet);
                     i--;
@@ -550,8 +554,8 @@ public class GameSceneController implements Initializable {
 
     public void fireBomb(ActionEvent actionEvent) {
 //        if (BombBar.getProgress() == 1) {
-            new planeToBombAnimation().run(plane);
-       // }
+        new planeToBombAnimation().run(plane, bossFight, collisionTimer);
+        // }
     }
 
 }
