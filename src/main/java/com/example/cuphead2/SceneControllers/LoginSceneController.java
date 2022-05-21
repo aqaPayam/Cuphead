@@ -1,25 +1,33 @@
 package com.example.cuphead2.SceneControllers;
 
 import com.example.cuphead2.Controller.LoginController;
+import com.example.cuphead2.Main;
 import com.example.cuphead2.MainSceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static java.time.Duration.ofSeconds;
 
 
-public class LoginSceneController {
+public class LoginSceneController implements Initializable {
     private final LoginController controller = new LoginController();
     @FXML
     public Button guestLabel;
+    public Button nextAvatarButton;
+    public ImageView avatarImage;
     @FXML
     private Label label;
     @FXML
@@ -34,6 +42,7 @@ public class LoginSceneController {
     private Button loginButton;
     @FXML
     private Button registerButton;
+    private int avatar = 1;
 
 
     public void register(ActionEvent e) throws InterruptedException {
@@ -41,7 +50,7 @@ public class LoginSceneController {
         String pass = registerPassword.getText();
         String username = registerUsername.getText();
         if (controller.isRegisterValid(username, pass)) {
-            controller.register(username, pass);
+              controller.register(username, pass,avatar);
             label.setText("Register successful");
         } else {
             label.setText("you cant use this username");
@@ -63,5 +72,17 @@ public class LoginSceneController {
 
     public void enterGuest(ActionEvent e) throws IOException {
         MainSceneController.get().MainMenu((Stage) ((Node) e.getSource()).getScene().getWindow());
+    }
+
+    public void nextAvatar(ActionEvent actionEvent) {
+        avatar++;
+        if (avatar >= 6)
+            avatar = 1;
+        avatarImage.setImage(new Image(Main.class.getResource("Avatars/" + avatar + ".png").toExternalForm()));
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        avatarImage.setImage(new Image(Main.class.getResource("Avatars/" + avatar  + ".png").toExternalForm()));
     }
 }

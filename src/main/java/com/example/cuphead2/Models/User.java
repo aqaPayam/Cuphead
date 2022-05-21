@@ -1,9 +1,16 @@
 package com.example.cuphead2.Models;
 
 public class User {
+    private int avatarImage;
     private String username;
     private String password;
     private int highScore;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.highScore = 0;
+    }
 
     public String getUsername() {
         return username;
@@ -30,7 +37,8 @@ public class User {
     }
 
 
-    public User(String username, String password) {
+    public User(String username, String password,int avatarImage) {
+        this.avatarImage=avatarImage;
         this.username = username;
         this.password = password;
         this.highScore = 0;
@@ -43,4 +51,11 @@ public class User {
                 "highscore : " + highScore;
     }
 
+    public int getAvatarImage() {
+        return avatarImage;
+    }
+
+    public void setAvatarImage(int avatarImage) {
+        this.avatarImage = avatarImage;
+    }
 }

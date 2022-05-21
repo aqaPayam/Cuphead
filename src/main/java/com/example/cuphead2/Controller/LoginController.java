@@ -6,8 +6,8 @@ import com.example.cuphead2.Models.UserDatabase;
 
 public class LoginController {
 
-    public void register(String username, String password) {
-        User newUser = new User(username, password);
+    public void register(String username, String password,int avatar) {
+        User newUser = new User(username, password,avatar);
         UserDatabase.addUser(newUser);
     }
 
