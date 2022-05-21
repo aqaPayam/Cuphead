@@ -54,6 +54,8 @@ public class GameSceneController implements Initializable {
 
 
     private final Plane plane = Plane.getInstance();
+    public Button bombButton;
+    public ProgressBar BombBar;
 
     private BossFight bossFight = BossFight.getInstance();
 
@@ -82,8 +84,6 @@ public class GameSceneController implements Initializable {
     public ImageView heart10;
     @FXML
     private ProgressBar bossFightHealth;
-    @FXML
-    private Button button;
 
     @FXML
     private AnchorPane pane;
@@ -173,6 +173,7 @@ public class GameSceneController implements Initializable {
         generateEggSet();
         generateMiniBoss();
         movementSetup();
+        setBombBar();
         playBossFightAnimation();
         collisionTimer.start();
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
@@ -182,6 +183,17 @@ public class GameSceneController implements Initializable {
                 timer.stop();
             }
         }));
+    }
+
+    private void setBombBar() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (BombBar.getProgress() != 1)
+                    BombBar.setProgress(BombBar.getProgress() + 0.001);
+            }
+        }, 0, 30);
     }
 
     public void movementSetup() {
@@ -534,6 +546,12 @@ public class GameSceneController implements Initializable {
                 transition5.play();
             }
         }, 0, 3000);
+    }
+
+    public void fireBomb(ActionEvent actionEvent) {
+//        if (BombBar.getProgress() == 1) {
+            new planeToBombAnimation().run(plane);
+       // }
     }
 
 }
