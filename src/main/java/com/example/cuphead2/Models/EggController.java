@@ -15,18 +15,20 @@ import java.util.TimerTask;
 
 public class EggController {
     private static EggController instance;
+
     public static EggController getInstance() {
         if (instance == null)
             instance = new EggController();
         return instance;
     }
 
+    public Timer timer = new Timer();
 
     private EggController() {
     }
 
     public void generateEggSet() {
-        Timer timer = new Timer();
+
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -38,7 +40,7 @@ public class EggController {
     }
 
     private void fireEgg() {
-        Pane pane= (Pane) BossFight.getInstance().getParent();
+        Pane pane = (Pane) BossFight.getInstance().getParent();
         Egg egg = new Egg();
         Egg.getEggArray().add(egg);
         pane.getChildren().add(egg);

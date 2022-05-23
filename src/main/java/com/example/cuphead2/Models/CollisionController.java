@@ -1,6 +1,7 @@
 package com.example.cuphead2.Models;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class CollisionController {
@@ -19,6 +20,7 @@ public class CollisionController {
         planeBossFightCollision();
         bulletBossFightCollision();
         EggCollision();
+        EggSecondBossCollision();
         MiniBossCollision();
     }
 
@@ -56,6 +58,15 @@ public class CollisionController {
                 Egg.getEggArray().remove(bullet);
                 pane.getChildren().remove(bullet);
                 i--;
+            }
+        }
+    }
+
+    private void EggSecondBossCollision() {
+        for (int i = 0; i < BossFightAnimation.getInstance().eggs.size(); i++) {
+            Egg imageView = BossFightAnimation.getInstance().eggs.get(i);
+            if (imageView.hasCollision(plane)) {
+                plane.planeInjured();
             }
         }
     }
