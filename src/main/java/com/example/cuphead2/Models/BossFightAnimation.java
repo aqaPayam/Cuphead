@@ -25,15 +25,31 @@ public class BossFightAnimation {
 
     public final ArrayList<Egg> eggs = new ArrayList<>();
     private final ArrayList<TranslateTransition> eggTransition = new ArrayList<>();
+    private Timer timer = new Timer();
 
     public void BossFightAnimationTimerSet() {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long timestamp) {
-                if (BossFight.getInstance().getHealth() <= 2500) {
+                if (BossFight.getInstance().getHealth() <= 4500) {
                     enterDevilMode();
                     EggController.getInstance().timer.cancel();
                     EggController.getInstance().timer.purge();
+                    deathCheck();
+                    stop();
+                }
+            }
+        };
+        timer.start();
+    }
+
+    private void deathCheck() {
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long timestamp) {
+                if (BossFight.getInstance().getHealth() < 2000) {
+                    enterDeathMod();
+                    EggController.getInstance().generateVerticalEggSet();
                     stop();
                 }
             }
@@ -73,7 +89,7 @@ public class BossFightAnimation {
             public void run() {
                 Platform.runLater(() -> {
                     String frame = BossFight.getFrameString();
-                    if (bossFight.getHealth() > 2500) {
+                    if (bossFight.getHealth() > 4500) {
                         BossFight.getInstance().setImage(
                                 new Image(Main.class.
                                         getResource("Phase 1/House/bird_idle_house_00" + frame + ".png")
@@ -81,8 +97,7 @@ public class BossFightAnimation {
                         imageView.setImage(new Image(Main.class.
                                 getResource("Phase 1/Barf/bird_barf_head_00" + frame + ".png")
                                 .toExternalForm()));
-                    }
-                    if (bossFight.getHealth() <= 2500) {
+                    } else if (bossFight.getHealth() <= 4500 && bossFight.getHealth() >= 2000) {
                         transition5.stop();
                         transition.stop();
                         pane.getChildren().remove(imageView);
@@ -92,6 +107,13 @@ public class BossFightAnimation {
                                         .toExternalForm()));
                         BossFight.getInstance().setFitWidth(200);
                         BossFight.getInstance().setFitHeight(200);
+                    } else if (bossFight.getHealth() < 2000) {
+                        BossFight.getInstance().setImage(
+                                new Image(Main.class.
+                                        getResource("death/stretcher_regurgitate_00" + frame + ".png")
+                                        .toExternalForm()));
+                        BossFight.getInstance().setFitHeight((double) 421 / 5 * 4);
+                        BossFight.getInstance().setFitWidth((double) 593 / 5 * 4);
                     }
                 });
             }
@@ -157,8 +179,26 @@ public class BossFightAnimation {
         setRandomTransition();
     }
 
+    private void enterDeathMod() {
+        timer.cancel();
+        timer.purge();
+        ((Pane) Plane.getInstance().getParent()).getChildren().removeAll(eggs);
+        eggTransition.clear();
+        eggs.clear();
+        BossFight.getInstance().setLayoutX(-400);
+        BossFight.getInstance().setTranslateX(0);
+        BossFight.getInstance().setLayoutY(600);
+        BossFight.getInstance().setTranslateY(0);
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(3));
+        transition.setNode(BossFight.getInstance());
+        transition.setByX(1800);
+        transition.setInterpolator(Interpolator.LINEAR);
+        transition.setCycleCount(Animation.INDEFINITE);
+        transition.setAutoReverse(true);
+        transition.play();
+    }
+
     private void setRandomTransition() {
-        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -172,7 +212,7 @@ public class BossFightAnimation {
                 transition5.setInterpolator(Interpolator.LINEAR);
                 transition5.play();
                 for (int i = 0; i < 4; i++) {
-                    ImageView egg=eggs.get(i);
+                    ImageView egg = eggs.get(i);
                     eggTransition.get(i).stop();
                     TranslateTransition transition = new TranslateTransition(Duration.seconds(2));
                     transition.setNode(egg);

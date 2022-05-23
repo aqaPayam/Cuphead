@@ -23,12 +23,12 @@ public class EggController {
     }
 
     public Timer timer = new Timer();
+    public Timer timer2 = new Timer();
 
     private EggController() {
     }
 
     public void generateEggSet() {
-
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -53,6 +53,48 @@ public class EggController {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(5));
         transition.setNode(egg);
         transition.setByX(-2000);
+        transition.setInterpolator(Interpolator.LINEAR);
+        transition.play();
+        Music.getInstance().playOughtMusic();
+        transition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Egg.getEggArray().remove(egg);
+                pane.getChildren().remove(egg);
+            }
+        });
+    }
+
+
+    public void generateVerticalEggSet() {
+        timer2.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    fireVerticalEgg();
+                });
+            }
+        }, 0, 850);
+    }
+
+    private void fireVerticalEgg() {
+        Pane pane = (Pane) BossFight.getInstance().getParent();
+        Egg egg = new Egg();
+        egg.setLayoutX(BossFight.getInstance().getLayoutX() +
+                BossFight.getInstance().getTranslateX() + 400);
+        egg.setLayoutY(BossFight.getInstance().getTranslateY() +
+                BossFight.getInstance().getLayoutY());
+        Egg.getEggArray().add(egg);
+        pane.getChildren().add(egg);
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setNode(egg);
+        rotateTransition.setByAngle(360);
+        rotateTransition.setInterpolator(Interpolator.LINEAR);
+        rotateTransition.setCycleCount(Animation.INDEFINITE);
+        rotateTransition.play();
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(5));
+        transition.setNode(egg);
+        transition.setByY(-1000);
         transition.setInterpolator(Interpolator.LINEAR);
         transition.play();
         Music.getInstance().playOughtMusic();

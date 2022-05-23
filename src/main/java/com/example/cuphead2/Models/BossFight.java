@@ -20,7 +20,7 @@ public class BossFight extends ImageView {
         this.health = health;
     }
 
-    private int health=5000;
+    private int health=7000;
 
     public static BossFight getInstance() {
         if (instance == null)

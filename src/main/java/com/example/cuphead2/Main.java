@@ -29,7 +29,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         MainSceneController sceneController = MainSceneController.get();
         stage.setTitle("CupHead");
-        sceneController.LoginMenu(stage);
+        sceneController.GameMenu(stage);
     }
     public static void main(String[] args) {
         launch();
