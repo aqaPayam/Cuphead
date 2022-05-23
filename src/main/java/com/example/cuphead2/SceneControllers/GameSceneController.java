@@ -16,10 +16,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -73,12 +75,18 @@ public class GameSceneController implements Initializable {
     @FXML
     private AnchorPane pane;
 
+
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
             bossFightHealth.setProgress(bossFight.getHealth() / (double) 5000);
             healthLabel.setText(String.valueOf(bossFight.getHealth()));
             CollisionController.getInstance().run();
+//            for (Node child : pane.getChildren()) {
+//                ColorAdjust colorAdjust = new ColorAdjust();
+//                colorAdjust.setBrightness(-1);
+//                child.setEffect(colorAdjust);
+//            }
         }
     };
 
