@@ -20,10 +20,29 @@ public class Music {
 
     }
 
-    public void playMusic() {
-        String path = "src/main/resources/com/example/cuphead2/music.mp3";
+    public MediaPlayer mainMediaPlayer;
+
+    public void playGameMusic() {
+        String path = "src/main/resources/com/example/cuphead2/Game.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mainMediaPlayer=mediaPlayer;
+        mediaPlayer.setAutoPlay(true);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (!mediaPlayer.isAutoPlay())
+                    mediaPlayer.setAutoPlay(true);
+            }
+        }, 1000);
+    }
+
+    public void playMainMusic() {
+        String path = "src/main/resources/com/example/cuphead2/Main.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mainMediaPlayer=mediaPlayer;
         mediaPlayer.setAutoPlay(true);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -39,6 +58,7 @@ public class Music {
         String path = "src/main/resources/com/example/cuphead2/gun.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mainMediaPlayer=mediaPlayer;
         mediaPlayer.play();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -54,6 +74,7 @@ public class Music {
         String path = "src/main/resources/com/example/cuphead2/ought.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mainMediaPlayer=mediaPlayer;
         mediaPlayer.play();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {

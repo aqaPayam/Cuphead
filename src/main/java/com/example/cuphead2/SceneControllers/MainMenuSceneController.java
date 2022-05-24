@@ -1,5 +1,6 @@
 package com.example.cuphead2.SceneControllers;
 
+import com.example.cuphead2.Models.Music;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ public class MainMenuSceneController {
     public Button exit;
 
     public void playSavedGame(ActionEvent actionEvent) throws IOException {
+        Music.getInstance().mainMediaPlayer.stop();
         MainSceneController.get().GameMenu((Stage) ((Node) actionEvent.getSource()).getScene().getWindow());
     }
 
@@ -23,6 +25,7 @@ public class MainMenuSceneController {
     }
 
     public void playNewGame(ActionEvent actionEvent) throws IOException {
+        Music.getInstance().mainMediaPlayer.stop();
         MainSceneController.get().GameMenu((Stage) ((Node) actionEvent.getSource()).getScene().getWindow());
     }
 

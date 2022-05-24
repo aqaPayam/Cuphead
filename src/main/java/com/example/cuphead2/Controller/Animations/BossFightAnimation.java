@@ -230,6 +230,8 @@ public class BossFightAnimation {
                     transition.setOnFinished(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent actionEvent) {
+                            if (eggTransition.size() != 4)
+                                cancel();
                             eggTransition.get(finalI).play();
                         }
                     });

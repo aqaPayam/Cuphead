@@ -41,7 +41,7 @@ public class CollisionController {
         for (int i = 0; i < Bullet.getBulletArray().size(); i++) {
             Bullet bullet = Bullet.getBulletArray().get(i);
             if (bullet.hasCollision(bossFight)) {
-                bossFight.setHealth(bossFight.getHealth() - 100);
+                bossFight.setHealth(bossFight.getHealth() - 50);
                 Bullet.getBulletArray().remove(bullet);
                 pane.getChildren().remove(bullet);
                 i--;

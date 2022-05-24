@@ -2,6 +2,7 @@ package com.example.cuphead2.SceneControllers;
 
 import com.example.cuphead2.Controller.LoginController;
 import com.example.cuphead2.Main;
+import com.example.cuphead2.Models.Music;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -87,6 +88,7 @@ public class LoginSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         avatarImage.setImage(new Image(Main.class.getResource("Avatars/" + avatar + ".png").toExternalForm()));
+        Music.getInstance().playMainMusic();
     }
 
     public void randomAvatar(ActionEvent actionEvent) {

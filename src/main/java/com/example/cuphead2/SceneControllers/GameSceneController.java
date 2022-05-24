@@ -71,7 +71,7 @@ public class GameSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Music.getInstance().playMusic();
+        Music.getInstance().playGameMusic();
         pane.getChildren().add(plane);
         BackgroundController.getInstance().startBackgroundAnimation();
         setHeartsToPlane();
