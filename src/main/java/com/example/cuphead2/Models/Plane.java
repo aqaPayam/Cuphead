@@ -159,4 +159,8 @@ public class Plane extends ImageView {
     public void setInInjured(boolean inInjured) {
         this.inInjured = inInjured;
     }
+
+    public boolean isPlaneDead() {
+        return health <= 0;
+    }
 }

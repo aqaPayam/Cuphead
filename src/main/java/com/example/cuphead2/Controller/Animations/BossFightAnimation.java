@@ -27,6 +27,7 @@ public class BossFightAnimation {
         return instance;
     }
 
+    private TranslateTransition devilTransition;
     public final ArrayList<Egg> eggs = new ArrayList<>();
     private final ArrayList<TranslateTransition> eggTransition = new ArrayList<>();
     private Timer timer = new Timer();
@@ -184,6 +185,7 @@ public class BossFightAnimation {
     }
 
     private void enterDeathMod() {
+        devilTransition.stop();
         timer.cancel();
         timer.purge();
         ((Pane) Plane.getInstance().getParent()).getChildren().removeAll(eggs);
@@ -206,7 +208,8 @@ public class BossFightAnimation {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                TranslateTransition transition5 = new TranslateTransition(Duration.seconds(2));
+                devilTransition = new TranslateTransition(Duration.seconds(2));
+                TranslateTransition transition5 = devilTransition;
                 transition5.setNode(BossFight.getInstance());
                 transition5.setByX(-BossFight.getInstance().getTranslateX() - BossFight.getInstance().getLayoutX() +
                         Plane.getInstance().getLayoutX());
@@ -231,7 +234,7 @@ public class BossFightAnimation {
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             if (eggTransition.size() != 4)
-                                cancel();
+                                return;
                             eggTransition.get(finalI).play();
                         }
                     });

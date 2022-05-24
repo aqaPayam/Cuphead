@@ -12,13 +12,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -61,11 +64,8 @@ public class GameSceneController implements Initializable {
             bossFightHealth.setProgress(bossFight.getHealth() / (double) 5000);
             healthLabel.setText(String.valueOf(bossFight.getHealth()));
             CollisionController.getInstance().run();
-//            for (Node child : pane.getChildren()) {
-//                ColorAdjust colorAdjust = new ColorAdjust();
-//                colorAdjust.setBrightness(-1);
-//                child.setEffect(colorAdjust);
-//            }
+            endGameCheck();
+
         }
     };
 
@@ -122,6 +122,26 @@ public class GameSceneController implements Initializable {
         }
     }
 
+    private void endGameCheck() {
+        if (plane.isPlaneDead()) {
+            pane.getChildren().clear();
+            timer.stop();
+            try {
+                MainSceneController.get().Win((Stage) pane.getScene().getWindow());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (bossFight.isBossFightDead()) {
+            pane.getChildren().clear();
+            timer.stop();
+            try {
+                MainSceneController.get().Win((Stage) pane.getScene().getWindow());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 

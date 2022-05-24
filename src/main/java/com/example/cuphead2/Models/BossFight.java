@@ -20,7 +20,7 @@ public class BossFight extends ImageView {
         this.health = health;
     }
 
-    private int health=7000;
+    private int health = 7000;
 
     public static BossFight getInstance() {
         if (instance == null)
@@ -35,8 +35,6 @@ public class BossFight extends ImageView {
         super.setFitWidth((double) 593 / 5 * 4);
         super.setLayoutX(1100);
         super.setLayoutY(0);
-        // super.setPreserveRatio(true);
-        // super.setPickOnBounds(true);
     }
 
     public static int getFrame() {
@@ -44,7 +42,7 @@ public class BossFight extends ImageView {
             frame = 0;
         int a = frame;
         frame++;
-        return a+1;
+        return a + 1;
     }
 
     public static String getFrameString() {
@@ -54,29 +52,8 @@ public class BossFight extends ImageView {
         return "0" + a;
     }
 
-    public void move(double dx, double dy) {
-        this.setLayoutX(this.getLayoutX() + dx);
-        this.setLayoutY(this.getLayoutY() + dy);
-    }
-
-    public boolean hasCollision(ImageView block) {
-        return block.getBoundsInParent().intersects(this.getBoundsInParent());
-    }
-
-    public boolean hitTopWall() {
-        return this.getLayoutY() <= 0;
-    }
-
-    public boolean hitLeftWall() {
-        return this.getLayoutX() <= 0;
-    }
-
-    public boolean hitRightWall() {
-        return this.getLayoutX() + this.getFitWidth() >= this.getScene().getWindow().getWidth();
-    }
-
-    public boolean hitFloor() {
-        return this.getLayoutY() + this.getFitHeight() >= this.getScene().getWindow().getHeight();
+    public boolean isBossFightDead() {
+        return getHealth() < 0;
     }
 
 
