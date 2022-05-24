@@ -1,8 +1,6 @@
 package com.example.cuphead2.SceneControllers;
 
 import com.example.cuphead2.Main;
-import com.example.cuphead2.MainSceneController;
-import com.example.cuphead2.Models.User;
 import com.example.cuphead2.Models.UserDatabase;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -26,8 +24,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ProfileSceneController implements Initializable {
     public Button logout;

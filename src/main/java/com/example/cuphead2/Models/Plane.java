@@ -76,7 +76,7 @@ public class Plane extends ImageView {
         Plane plane = this;
         Pane pane = (Pane) plane.getParent();
 
-        int seconds = 4000;
+        int seconds = 2000;
         if (plane.isInInjured())
             return;
         plane.setHealth(plane.getHealth() - 1);

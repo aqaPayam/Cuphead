@@ -2,7 +2,6 @@ package com.example.cuphead2.SceneControllers;
 
 import com.example.cuphead2.Controller.LoginController;
 import com.example.cuphead2.Main;
-import com.example.cuphead2.MainSceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;

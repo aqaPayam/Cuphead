@@ -1,6 +1,5 @@
 package com.example.cuphead2.SceneControllers;
 
-import com.example.cuphead2.MainSceneController;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -32,6 +31,6 @@ public class MainMenuSceneController {
     }
 
     public void exit(ActionEvent actionEvent) throws IOException {
-        MainSceneController.get().LoginMenu((Stage) ((Node) actionEvent.getSource()).getScene().getWindow());
+     System.exit(0);
     }
 }
