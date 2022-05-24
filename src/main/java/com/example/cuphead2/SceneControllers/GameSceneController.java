@@ -115,7 +115,6 @@ public class GameSceneController implements Initializable {
     }
 
     public void fireBomb(ActionEvent actionEvent) {
-        System.out.println(BombBar.getProgress());
         if (BombBar.getProgress() == 1) {
             new planeToBombAnimation().run(plane, bossFight, timer);
             BombBar.setProgress(0);
@@ -124,8 +123,6 @@ public class GameSceneController implements Initializable {
 
     private void endGameCheck() {
         if (plane.isPlaneDead()) {
-            pane.getChildren().clear();
-            timer.stop();
             try {
                 MainSceneController.get().Win((Stage) pane.getScene().getWindow());
             } catch (IOException e) {
@@ -133,13 +130,15 @@ public class GameSceneController implements Initializable {
             }
         }
         if (bossFight.isBossFightDead()) {
-            pane.getChildren().clear();
-            timer.stop();
             try {
                 MainSceneController.get().Win((Stage) pane.getScene().getWindow());
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//            timer.stop();
+//            pane.getChildren().clear();
+//            MiniBoss.timer.cancel();
+//            MiniBoss.timer.purge();
         }
     }
 }

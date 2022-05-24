@@ -45,8 +45,7 @@ public class planeToBombAnimation {
         animationTimer.start();
         TranslateTransition transition = new TranslateTransition(Duration.seconds(1));
         transition.setNode(plane);
-        System.out.println(bossFight.getLayoutX() - plane.getLayoutX());
-        transition.setByX(bossFight.getLayoutX() - plane.getLayoutX());
+        transition.setByX(bossFight.getTranslateX() + bossFight.getLayoutX() - plane.getLayoutX());
         transition.setInterpolator(Interpolator.LINEAR);
         Timer timer1 = new Timer();
         timer1.schedule(new TimerTask() {
@@ -94,8 +93,8 @@ public class planeToBombAnimation {
 
     private void boom(Pane pane) {
         ImageView imageView = new ImageView();
-        imageView.setLayoutX(BossFight.getInstance().getLayoutX()+BossFight.getInstance().getTranslateX());
-        imageView.setLayoutY(BossFight.getInstance().getLayoutY()+BossFight.getInstance().getTranslateY());
+        imageView.setLayoutX(BossFight.getInstance().getLayoutX() + BossFight.getInstance().getTranslateX());
+        imageView.setLayoutY(BossFight.getInstance().getLayoutY() + BossFight.getInstance().getTranslateY());
         imageView.setFitWidth(300);
         imageView.setFitHeight(300);
         pane.getChildren().add(imageView);
