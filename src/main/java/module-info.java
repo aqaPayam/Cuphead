@@ -11,9 +11,11 @@ module com.example.cuphead2 {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.google.gson;
 
     opens com.example.cuphead2 to javafx.fxml;
     exports com.example.cuphead2;
     exports com.example.cuphead2.SceneControllers;
     opens com.example.cuphead2.SceneControllers to javafx.fxml;
+    opens com.example.cuphead2.Models to com.google.gson;
 }

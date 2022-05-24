@@ -1,9 +1,17 @@
 package com.example.cuphead2.Models;
 
 
-//import com.google.gson.Gson;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class UserDatabase {
@@ -70,45 +78,45 @@ public class UserDatabase {
     }
 
 
-//    static public void loadUsers() {
-//        try {
-//            File myObj = new File("UserDatabase.json");
-//            if (!myObj.exists())
-//                myObj.createNewFile();
-//            List<User> users1 = new ArrayList<>();
-//            Gson gson = new Gson();
-//            Reader reader = Files.newBufferedReader(Paths.get("UserDatabase.json"));
-//            User[] tempList = gson.fromJson(reader, User[].class);
-//            if (tempList != null)
-//                users1 = Arrays.asList(tempList);
-//            ArrayList<User> userArrayList = new ArrayList<>(users1);
-//            reader.close();
-//            users.addAll(userArrayList);
-//        } catch (IOException e) {
-//            System.err.println("ERROR! in loading UserDatabase[JSON]");
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    static public void saveUsers() {
-//        Gson gson = new Gson();
-//        try {
-//            Writer writer = Files.newBufferedWriter(Paths.get("UserDatabase.json"));
-//            System.out.println(users.size());
-//            gson.toJson(users, writer);
-//            writer.close();
-//        } catch (IOException e) {
-//            System.err.println("ERROR! in SavingUser[JSON]");
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    static public boolean isUsernameDuplicate(User user) {
-//        for (User user1 : users) {
-//            if (Objects.equals(user1.getUsername(), user.getUsername()))
-//                return true;
-//        }
-//        return false;
-//    }
+    static public void loadUsers() {
+        try {
+            File myObj = new File("UserDatabase.json");
+            if (!myObj.exists())
+                myObj.createNewFile();
+            List<User> users1 = new ArrayList<>();
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get("UserDatabase.json"));
+            User[] tempList = gson.fromJson(reader, User[].class);
+            if (tempList != null)
+                users1 = Arrays.asList(tempList);
+            ArrayList<User> userArrayList = new ArrayList<>(users1);
+            reader.close();
+            users.addAll(userArrayList);
+        } catch (IOException e) {
+            System.err.println("ERROR! in loading UserDatabase[JSON]");
+            throw new RuntimeException(e);
+        }
+    }
+
+    static public void saveUsers() {
+        Gson gson = new Gson();
+        try {
+            Writer writer = Files.newBufferedWriter(Paths.get("UserDatabase.json"));
+            System.out.println(users.size());
+            gson.toJson(users, writer);
+            writer.close();
+        } catch (IOException e) {
+            System.err.println("ERROR! in SavingUser[JSON]");
+            throw new RuntimeException(e);
+        }
+    }
+
+    static public boolean isUsernameDuplicate(User user) {
+        for (User user1 : users) {
+            if (Objects.equals(user1.getUsername(), user.getUsername()))
+                return true;
+        }
+        return false;
+    }
 
 }

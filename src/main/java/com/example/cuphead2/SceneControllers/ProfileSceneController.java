@@ -75,6 +75,7 @@ public class ProfileSceneController implements Initializable {
         UserDatabase.getUsers().remove(UserDatabase.getCurrentUser());
         UserDatabase.setCurrentUser(null);
         MainSceneController.get().LoginMenu((Stage) ((Node) actionEvent.getSource()).getScene().getWindow());
+        UserDatabase.saveUsers();
     }
 
     public void setNewUsername(ActionEvent actionEvent) {
