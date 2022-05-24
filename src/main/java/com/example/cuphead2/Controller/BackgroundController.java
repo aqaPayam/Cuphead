@@ -35,6 +35,7 @@ public class BackgroundController {
                 new KeyFrame(Duration.seconds(100), new KeyValue(xPosition, -15000))
         );
         timeline.play();
+        ThreadsController.timelines.add(timeline);
     }
 
     private void setBackgroundPositions(Region region, double xPosition) {

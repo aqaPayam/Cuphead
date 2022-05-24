@@ -1,6 +1,7 @@
 package com.example.cuphead2.Controller.Animations;
 
 import com.example.cuphead2.Controller.EggController;
+import com.example.cuphead2.Controller.ThreadsController;
 import com.example.cuphead2.Main;
 import com.example.cuphead2.Models.BossFight;
 import com.example.cuphead2.Models.Egg;
@@ -46,6 +47,7 @@ public class BossFightAnimation {
             }
         };
         timer.start();
+        ThreadsController.animationTimers.add(timer);
     }
 
     private void deathCheck() {
@@ -123,6 +125,7 @@ public class BossFightAnimation {
                 });
             }
         }, 200, 50);
+        ThreadsController.timers.add(timer);
     }
 
     private void addEggs() {

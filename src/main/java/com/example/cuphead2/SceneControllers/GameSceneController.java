@@ -5,6 +5,7 @@ import com.example.cuphead2.Controller.Animations.planeToBombAnimation;
 import com.example.cuphead2.Controller.BackgroundController;
 import com.example.cuphead2.Controller.CollisionController;
 import com.example.cuphead2.Controller.EggController;
+import com.example.cuphead2.Controller.ThreadsController;
 import com.example.cuphead2.Models.*;
 import javafx.animation.*;
 
@@ -12,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
@@ -30,6 +30,7 @@ public class GameSceneController implements Initializable {
     public Button bombButton;
     public ProgressBar BombBar;
     private final BossFight bossFight = BossFight.getInstance();
+    public Label ponitLabel;
     @FXML
     private Label healthLabel;
     @FXML
@@ -56,21 +57,24 @@ public class GameSceneController implements Initializable {
     private ProgressBar bossFightHealth;
     @FXML
     private AnchorPane pane;
-
+    private int score = 100;
+    private long seconds;
 
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
             bossFightHealth.setProgress(bossFight.getHealth() / (double) 5000);
+            score = 9000 - bossFight.getHealth() + plane.getHealth() * 100;
+            ponitLabel.setText("score : " + score);
             healthLabel.setText(String.valueOf(bossFight.getHealth()));
             CollisionController.getInstance().run();
             endGameCheck();
-
         }
     };
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        seconds=System.currentTimeMillis();
         Music.getInstance().playGameMusic();
         pane.getChildren().add(plane);
         BackgroundController.getInstance().startBackgroundAnimation();
@@ -97,6 +101,7 @@ public class GameSceneController implements Initializable {
 
             }
         }, 0, 10);
+        ThreadsController.timers.add(timer);
     }
 
     public void setHeartsToPlane() {
@@ -123,23 +128,40 @@ public class GameSceneController implements Initializable {
 
     private void endGameCheck() {
         if (plane.isPlaneDead()) {
+            endGame();
             try {
-                MainSceneController.get().Win((Stage) pane.getScene().getWindow());
+                MainSceneController.get().Lose((Stage) pane.getScene().getWindow());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         if (bossFight.isBossFightDead()) {
+            endGame();
             try {
                 MainSceneController.get().Win((Stage) pane.getScene().getWindow());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            timer.stop();
-//            pane.getChildren().clear();
-//            MiniBoss.timer.cancel();
-//            MiniBoss.timer.purge();
         }
+    }
+
+    private void endGame() {
+        ThreadsController.ended = true;
+        ThreadsController.time=(System.currentTimeMillis()-seconds)/1000;
+        ThreadsController.point= score;
+        timer.stop();
+        pane.getChildren().clear();
+        for (Timeline timeline : ThreadsController.timelines) {
+            timeline.stop();
+        }
+        for (AnimationTimer animationTimer : ThreadsController.animationTimers) {
+            animationTimer.stop();
+        }
+        for (Timer timer1 : ThreadsController.timers) {
+            timer1.cancel();
+        }
+        EggController.getInstance().timer.cancel();
+        EggController.getInstance().timer2.cancel();
     }
 }
 

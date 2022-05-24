@@ -1,5 +1,6 @@
 package com.example.cuphead2.Models;
 
+import com.example.cuphead2.Controller.ThreadsController;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
@@ -35,49 +36,51 @@ public class PlaneMovement {
 
     public void run() {
         movementSetup();
-        keyPressed.addListener(((observableValue, aBoolean, t1) -> {
-            if (!aBoolean) {
-                timer.start();
-            } else {
-                timer.stop();
-            }
-        }));
+        timer.start();
+        ThreadsController.animationTimers.add(timer);
+//        keyPressed.addListener(((observableValue, aBoolean, t1) -> {
+//            if (!aBoolean) {
+//                timer.start();
+//            } else {
+//                timer.stop();
+//            }
+//        }));
     }
 
     private final AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
 
-            if (wPressed.get() && ! Plane.getInstance().hitTopWall()) {
+            if (wPressed.get() && !Plane.getInstance().hitTopWall()) {
                 Plane.getInstance().goUp();
             }
 
-            if (sPressed.get() && ! Plane.getInstance().hitFloor()) {
-                 Plane.getInstance().goDown();
+            if (sPressed.get() && !Plane.getInstance().hitFloor()) {
+                Plane.getInstance().goDown();
             }
 
-            if (aPressed.get() && ! Plane.getInstance().hitLeftWall()) {
-                 Plane.getInstance().goLeft();
+            if (aPressed.get() && !Plane.getInstance().hitLeftWall()) {
+                Plane.getInstance().goLeft();
             }
 
-            if (dPressed.get() && ! Plane.getInstance().hitRightWall()) {
-                 Plane.getInstance().goRight();
+            if (dPressed.get() && !Plane.getInstance().hitRightWall()) {
+                Plane.getInstance().goRight();
             }
         }
     };
 
 
     private void movementSetup() {
-        Pane pane= (Pane) Plane.getInstance().getParent();
+        Pane pane = (Pane) Plane.getInstance().getParent();
         pane.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SHIFT) {
-
                 Timer timer = Bullet.getTimeline();
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
                         Platform.runLater(() -> {
-                            Plane.getInstance().fire();
+                            if (!ThreadsController.ended)
+                                Plane.getInstance().fire();
                         });
                     }
                 }, 0, 100);

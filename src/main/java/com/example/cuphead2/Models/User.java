@@ -1,10 +1,10 @@
 package com.example.cuphead2.Models;
 
 public class User {
-    private int avatarImage;
     private String username;
     private String password;
     private int highScore;
+    private int avatarImage;
 
     public User(String username, String password) {
         this.username = username;

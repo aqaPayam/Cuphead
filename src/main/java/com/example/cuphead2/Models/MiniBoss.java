@@ -1,5 +1,6 @@
 package com.example.cuphead2.Models;
 
+import com.example.cuphead2.Controller.ThreadsController;
 import com.example.cuphead2.Main;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
@@ -63,11 +64,10 @@ public class MiniBoss extends ImageView {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> {
-                    fireMiniBoss();
-                });
+                Platform.runLater(MiniBoss::fireMiniBoss);
             }
         }, 0, 1000);
+        ThreadsController.timers.add(timer);
     }
 
     private static void fireMiniBoss() {

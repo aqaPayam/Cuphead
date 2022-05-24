@@ -40,6 +40,7 @@ public class EggController {
                 });
             }
         }, 0, 800);
+        ThreadsController.timers.add(timer);
     }
 
     private void fireEgg() {
@@ -78,6 +79,7 @@ public class EggController {
                 });
             }
         }, 0, 850);
+        ThreadsController.timers.add(timer);
     }
 
     private void fireVerticalEgg() {
