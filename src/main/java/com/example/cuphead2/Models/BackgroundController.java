@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
+//background from http://edencoding.com/scene-background/#images
 public class BackgroundController {
     private static BackgroundController instance;
     Pane pane;
@@ -20,7 +21,7 @@ public class BackgroundController {
     }
 
     private BackgroundController() {
-        pane= (Pane) Plane.getInstance().getParent();
+        pane = (Pane) Plane.getInstance().getParent();
         System.out.println(pane);
     }
 
