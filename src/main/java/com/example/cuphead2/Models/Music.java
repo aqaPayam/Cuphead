@@ -27,7 +27,7 @@ public class Music {
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mainMediaPlayer=mediaPlayer;
-        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -43,7 +43,7 @@ public class Music {
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mainMediaPlayer=mediaPlayer;
-        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

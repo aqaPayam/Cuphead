@@ -25,7 +25,7 @@ public class MainMenuSceneController {
     }
 
     public void playNewGame(ActionEvent actionEvent) throws IOException {
-        Music.getInstance().mainMediaPlayer.stop();
+        Music.getInstance().mainMediaPlayer.pause();
         MainSceneController.get().GameMenu((Stage) ((Node) actionEvent.getSource()).getScene().getWindow());
     }
 

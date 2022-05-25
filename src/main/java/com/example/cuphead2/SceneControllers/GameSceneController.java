@@ -74,19 +74,7 @@ public class GameSceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        seconds=System.currentTimeMillis();
-        Music.getInstance().playGameMusic();
-        pane.getChildren().add(plane);
-        BackgroundController.getInstance().startBackgroundAnimation();
-        setHeartsToPlane();
-        pane.getChildren().add(bossFight);
-        EggController.getInstance().generateEggSet();
-        MiniBoss.generateMiniBoss();
-        PlaneMovement.getInstance().run();
-        setBombBar();
-        BossFightAnimation.getInstance().BossFightAnimationTimerSet();
-        BossFightAnimation.getInstance().playBossFightAnimation();
-        timer.start();
+        start();
     }
 
     private void setBombBar() {
@@ -147,8 +135,8 @@ public class GameSceneController implements Initializable {
 
     private void endGame() {
         ThreadsController.ended = true;
-        ThreadsController.time=(System.currentTimeMillis()-seconds)/1000;
-        ThreadsController.point= score;
+        ThreadsController.time = (System.currentTimeMillis() - seconds) / 1000;
+        ThreadsController.point = score;
         timer.stop();
         pane.getChildren().clear();
         for (Timeline timeline : ThreadsController.timelines) {
@@ -162,6 +150,22 @@ public class GameSceneController implements Initializable {
         }
         EggController.getInstance().timer.cancel();
         EggController.getInstance().timer2.cancel();
+    }
+
+    private void start() {
+        seconds = System.currentTimeMillis();
+        Music.getInstance().playGameMusic();
+        pane.getChildren().add(plane);
+        BackgroundController.getInstance().startBackgroundAnimation();
+        setHeartsToPlane();
+        pane.getChildren().add(bossFight);
+        EggController.getInstance().generateEggSet();
+        MiniBoss.generateMiniBoss();
+        PlaneMovement.getInstance().run();
+        setBombBar();
+        BossFightAnimation.getInstance().BossFightAnimationTimerSet();
+        BossFightAnimation.getInstance().playBossFightAnimation();
+        timer.start();
     }
 }
 

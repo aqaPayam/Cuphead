@@ -34,8 +34,6 @@ public class Plane extends ImageView {
         super.setFitWidth(160);
         super.setLayoutX(227);
         super.setLayoutY(113);
-        // super.setPreserveRatio(true);
-        // super.setPickOnBounds(true);
     }
 
     public void move(double dx, double dy) {

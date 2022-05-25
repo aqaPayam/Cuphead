@@ -32,8 +32,6 @@ public class DevilBoss extends BossFight{
         super.setFitWidth((double) 593 / 5 * 4);
         super.setLayoutX(1100);
         super.setLayoutY(0);
-        // super.setPreserveRatio(true);
-        // super.setPickOnBounds(true);
     }
 
     public static int getFrame() {
@@ -42,21 +40,5 @@ public class DevilBoss extends BossFight{
         int a = frame;
         frame++;
         return a+1;
-    }
-
-    public static String getFrameString() {
-        int a = getFrame();
-        if (a > 9)
-            return String.valueOf(a);
-        return "0" + a;
-    }
-
-    public void move(double dx, double dy) {
-        this.setLayoutX(this.getLayoutX() + dx);
-        this.setLayoutY(this.getLayoutY() + dy);
-    }
-
-    public boolean hasCollision(ImageView block) {
-        return block.getBoundsInParent().intersects(this.getBoundsInParent());
     }
 }

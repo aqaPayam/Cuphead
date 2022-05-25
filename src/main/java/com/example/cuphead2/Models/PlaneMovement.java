@@ -38,13 +38,6 @@ public class PlaneMovement {
         movementSetup();
         timer.start();
         ThreadsController.animationTimers.add(timer);
-//        keyPressed.addListener(((observableValue, aBoolean, t1) -> {
-//            if (!aBoolean) {
-//                timer.start();
-//            } else {
-//                timer.stop();
-//            }
-//        }));
     }
 
     private final AnimationTimer timer = new AnimationTimer() {

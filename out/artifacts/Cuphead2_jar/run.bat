@@ -1,1 +1,0 @@
-java -jar Cuphead2.jar
