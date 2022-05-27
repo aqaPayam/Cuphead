@@ -1,6 +1,7 @@
 package com.example.cuphead2.SceneControllers;
 
 import com.example.cuphead2.Main;
+import com.example.cuphead2.Models.Music;
 import com.example.cuphead2.Models.UserDatabase;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -67,11 +68,13 @@ public class ProfileSceneController implements Initializable {
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
+        Music.getInstance().mainMediaPlayer.pause();
         UserDatabase.setCurrentUser(null);
         MainSceneController.get().LoginMenu((Stage) ((Node) actionEvent.getSource()).getScene().getWindow());
     }
 
     public void deleteUser(ActionEvent actionEvent) throws IOException {
+        Music.getInstance().mainMediaPlayer.pause();
         UserDatabase.getUsers().remove(UserDatabase.getCurrentUser());
         UserDatabase.setCurrentUser(null);
         MainSceneController.get().LoginMenu((Stage) ((Node) actionEvent.getSource()).getScene().getWindow());
